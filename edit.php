@@ -1,0 +1,94 @@
+<?php
+session_start();
+if(!isset($_SESSION['submit'])){
+    header('location: login.php');
+}
+
+require 'function.php';
+
+
+$id = $_GET['id'];
+
+$result=query("SELECT * FROM daftar_siswa WHERE ID = $id")[0];
+
+if(isset($_POST['submit'])){
+    if (edit($_POST)) {
+        echo "
+       <script>
+       alert('data berhasil di edit');
+       document.location.href = 'index.php';
+       </script>
+    ";
+}else{
+   echo "
+   <script>
+   alert('data gagal di edit');
+   document.location.href = 'index.php';
+   </script>
+";
+    }
+}
+?>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body class="container">
+      <br><br><br><br><br><br>
+
+    <form action="" method="post">
+        <label for="id" name="id" id="id" value="<?= $result['ID'] ?>" type=></label>
+    <div class="form-group">
+        <label for="NIS">NIS</label>
+        <input type="text" class="form-control" id="NIS" name="NIS" value="<?= $result['NIS'] ?>">
+    </div>
+    <div class="form-group">
+        <label for="nama">Nama</label>
+        <input type="text" class="form-control" id="nama" name="nama" value="<?= $result['nama'] ?>">
+    </div>
+    <div class="form-group">
+        <label for="kelas">kelas</label>
+        <select id="kelas" class="form-select" name="kelas" value="<?= $result['kelas'] ?>">
+            <option value="X"<?php if ($result['kelas'] == 'X') echo ' selected="selected"'; ?>>X</option>
+            <option value="XI"<?php if ($result['kelas'] == 'XI') echo ' selected="selected"'; ?>>XI</option>
+            <option value="XII"<?php if ($result['kelas'] == 'XII') echo ' selected="selected"'; ?>>XII</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="jurusan">jurusan</label>
+        <select id="jurusan" class="form-select" name="jurusan" value="<?= $result['jurusan'] ?>">
+            <option value="RPL"<?php if ($result['jurusan'] == 'RPL') echo ' selected="selected"'; ?> >RPL</option>
+            <option value="RPL"<?php if ($result['jurusan'] == 'TKJ') echo ' selected="selected"'; ?>>TKJ</option>
+            <option value="MM"<?php if ($result['jurusan'] == 'MM') echo ' selected="selected"'; ?> >MM</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="alamat">alamat</label>
+        <input type="text" class="form-control" id="alamat" name="alamat" value="<?= $result['alamat'] ?>">
+    </div>
+      <button type="submit" class="btn btn-primary" name="submit" name="submit">Submit</button>
+      <a href="stok.php" class="btn btn-danger">cancel</a>
+    </form>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
